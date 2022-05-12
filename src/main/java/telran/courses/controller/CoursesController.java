@@ -3,6 +3,7 @@ package telran.courses.controller;
 import java.util.List;
 
 import javax.validation.*;
+import javax.validation.constraints.*;
 
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import telran.courses.dto.Course;
 import telran.courses.exceptions.BadRequestException;
 import telran.courses.service.CoursesService;
+import static telran.courses.api.ApiConstants.*;
 @RestController
 @RequestMapping("/courses")
 @Validated
@@ -26,6 +28,9 @@ public class CoursesController {
 	@PostMapping
 	Course addCourse(@RequestBody @Valid Course course) {
 		Course courseAdded = coursesService.addCourse(course);
+		if (course.id == null) {
+			throw new RuntimeException("service has not generated id");
+		}
 		LOG.debug("added course with id {} ", courseAdded.id);
 		return courseAdded;
 	}
@@ -38,14 +43,14 @@ public class CoursesController {
 		return courses;
 	}
 	@GetMapping("/{id}")
-	Course getCourse(@PathVariable(name = "id") int id) {
+	Course getCourse(@PathVariable(name = "id") @Min(MIN_ID) @Max(MAX_ID) int id) {
 		Course course = coursesService.getCourse(id);
 		LOG.debug("course with id {} returned to client", course.id);
 		return course;
 	}
 	
 	@DeleteMapping("/{id}")
-	Course removeCourse(@PathVariable(name = "id") int id) {
+	Course removeCourse(@PathVariable(name = "id") @Min(MIN_ID) @Max(MAX_ID) int id) {
 		Course course = coursesService.removeCourse(id);
 		LOG.debug("course with id {} has been removed", id);
 		return course;

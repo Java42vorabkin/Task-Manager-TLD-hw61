@@ -4,15 +4,12 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.validation.constraints.*;
-
+import static telran.courses.api.ApiConstants.*;
 public class Course implements Serializable{
 	
 	
 	private static final long serialVersionUID = 1L;
-	private static final long MIN_HOURS = 80;
-	private static final long MAX_HOURS = 500;
-	private static final long MIN_COST = 5000;
-	private static final long MAX_COST = 20000;
+	
 	public Integer id;
 	@NotEmpty
 	public String course;
