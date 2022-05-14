@@ -19,7 +19,7 @@ import static telran.courses.api.ApiConstants.*;
 @RequestMapping("/courses")
 @Validated
 @CrossOrigin
-public class CoursesController {
+public class CoursesController { 
 	static Logger LOG = LoggerFactory.getLogger(CoursesController.class);
 	@Autowired
 	private CoursesService coursesService;

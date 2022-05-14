@@ -13,7 +13,7 @@ import telran.courses.exceptions.BadRequestException;
 import telran.courses.exceptions.ResourceNotFoundException;
 import telran.courses.repo.CourseRepository;
 @Service
-public class CoursesServiceImpl extends AbstractCoursesService {
+public class CoursesServiceImpl extends AbstractCoursesService { 
 	static Logger LOG = LoggerFactory.getLogger(CoursesServiceImpl.class);
 @Autowired
 	CourseRepository courseRepository;

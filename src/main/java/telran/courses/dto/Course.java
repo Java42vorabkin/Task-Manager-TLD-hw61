@@ -20,7 +20,7 @@ public class Course implements Serializable{
 	 @Min(MIN_COST) @Max(MAX_COST)
 	public int cost;
 	@NotNull
-	@Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}.*")
+	@Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}.*") 
 	public String openingDate;
 	public Course(@NotEmpty String course, @NotEmpty String lecturer, @Min(80) @Max(500) int hours,
 			@Min(5000) @Max(20000) int cost, @NotNull @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}.*") String openingDate) {

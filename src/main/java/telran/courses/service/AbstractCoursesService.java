@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public abstract class AbstractCoursesService implements CoursesService {
 	abstract protected boolean exists(int id);
 
-	protected int getId() {
+	protected int getId() { 
 		int id = 0;
 		var threadLocal = ThreadLocalRandom.current();
 		do {
