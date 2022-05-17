@@ -32,20 +32,26 @@ public class TaskManagerServiceImpl extends AbstractTaskManagerService {
 
 	}
 	
-	static int addingNaive = 0;
-	static int addingFIFO = 1;
-	static int addingPriority = 2;
+	int addingNaive = 0;
+	int addingFIFO = 1;
+	int addingPriority = 2;
+	int sortByTime = 0;
+	int sortByPriority = 1;
+	int sortByPid = 2;
+	int killByPid = 0;
+	int killByPriority = 1;
+	int killAll = 2;
 	
 	public TaskManagerServiceImpl() {
 		addingTask.put(addingNaive, new AddingTaskByNaive());
-		addingTask.put(1, new AddingTaskByFIFO());
-		addingTask.put(2, new AddingTaskByPriority());
-		sortingAlgo.put(0, new SortingByTime());
-		sortingAlgo.put(1, new SortingByPriority());
-		sortingAlgo.put(2, new SortingByPID());
-		killAlgo.put(0, new KillByPid());
-		killAlgo.put(1, new KillByPriority());
-		killAlgo.put(2, new KillAll());
+		addingTask.put(addingFIFO, new AddingTaskByFIFO());
+		addingTask.put(addingPriority, new AddingTaskByPriority());
+		sortingAlgo.put(sortByTime, new SortingByTime());
+		sortingAlgo.put(sortByPriority, new SortingByPriority());
+		sortingAlgo.put(sortByPid, new SortingByPID());
+		killAlgo.put(killByPid, new KillByPid());
+		killAlgo.put(killByPriority, new KillByPriority());
+		killAlgo.put(killAll, new KillAll());
 	}
 	
 	@Override
@@ -64,15 +70,14 @@ public class TaskManagerServiceImpl extends AbstractTaskManagerService {
 	public List<Task> kill(int pid, int priotity) {
 		KillingAbstract algo;
 		if(pid > (MIN_PID-1)) {
-			algo = killAlgo.get(0);
+			algo = killAlgo.get(killByPid);
 			algo.setParameter(pid);
 		} else if(priotity > MIN_PRIORITY-1 ) {
-			algo = killAlgo.get(1);
+			algo = killAlgo.get(killByPriority);
 			algo.setParameter(priotity);
 		} else {
-			algo = killAlgo.get(2);
-		}
-		
+			algo = killAlgo.get(killAll);
+		}		
 		List<Task> killedTasks = algo.execute(tasks);
 		return killedTasks;
 	}
